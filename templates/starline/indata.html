@@ -29,6 +29,7 @@
  <th><#LANG_TITLE#></th>
  <th>Обновлено</th>  
 <th>Тип</th>  
+<th>Баланс</th>  
 <th>Зажиг.</th>  
 <th>Охрана</th>  
 <th>Темп.дв</th>  
@@ -56,6 +57,13 @@
  <td style="vertical-align:middle">
   [#if tip!=""#]
    [#tip#]
+  [#else#]
+  [#endif#]
+ </td>  
+ 
+ <td style="vertical-align:middle">
+  [#if svalue!=""#]
+   [#svalue#]
   [#else#]
   [#endif#]
  </td>  
