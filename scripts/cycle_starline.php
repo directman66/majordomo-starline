@@ -11,7 +11,7 @@ include_once(DIR_MODULES . "control_modules/control_modules.class.php");
 $ctl = new control_modules();
 include_once(DIR_MODULES . 'starline/starline.class.php');
 $starline_module = new starline();
-$starline_module->getConfig();
+//$starline_module->getConfig();
 // In data
 //$tmp1 = SQLSelectOne("SELECT ID FROM lgps_out LIMIT 1");
 // Out data
