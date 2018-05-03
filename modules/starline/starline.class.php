@@ -327,7 +327,8 @@ $token=explode('=',  $part);
 $token2=explode(';',  $token[1]);
 
 	
- addClassObject('starline-online','starlinecfg');	
+ //addClassObject('starline-online','starlinecfg');	
+addClassObject('','starlinecfg');		
 sg('starlinecfg.token',$token2[0]);	
 $this->config['STARLINETOKEN']=$token2[0];
 }
