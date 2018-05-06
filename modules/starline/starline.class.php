@@ -682,6 +682,7 @@ $property['ONCHANGE']='OnChange'; //   <-----------
 $property['DESCRIPTION']='GPS координаты'; //   <-----------
 SQLUpdate('properties',$property);} 
 
+setGlobal('cycle_starlineAutoRestart','1');	 	 
  }
 // --------------------------------------------------------------------
 
