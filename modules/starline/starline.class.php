@@ -183,10 +183,12 @@ $out['STARLINEDEBUG']=$this->config['STARLINEDEBUG'];
     $this->indata_search($out); 
  }
  if ($this->view_mode=='login') {
+setGlobal('cycle_starlineControl','start');  	 
 		$this->login();
  }
 
  if ($this->view_mode=='get') {
+setGlobal('cycle_starlineControl','start');  
 		$this->getdatefnc();
  }
 
