@@ -42,6 +42,11 @@ function saveParams($data=0) {
  if (IsSet($this->view_mode)) {
   $p["view_mode"]=$this->view_mode;
  }
+
+	if (IsSet($this->dev)) {
+  $p["dev"]=$this->dev;
+ }
+	
  if (IsSet($this->edit_mode)) {
   $p["edit_mode"]=$this->edit_mode;
  }
@@ -66,6 +71,7 @@ function getParams() {
   global $view_mode;
   global $edit_mode;
   global $tab;
+  global $dev;	
   if (isset($id)) {
    $this->id=$id;
   }
@@ -78,6 +84,11 @@ function getParams() {
   if (isset($edit_mode)) {
    $this->edit_mode=$edit_mode;
   }
+	
+if (isset($dev)) {
+   $this->dev=$dev;
+  }
+	
   if (isset($tab)) {
    $this->tab=$tab;
   }
@@ -104,7 +115,8 @@ function run() {
    $out['PARENT_NAME']=$this->owner->name;
   }
   $out['VIEW_MODE']=$this->view_mode;
-  $out['EDIT_MODE']=$this->edit_mode;
+$out['dev']=$this->dev;
+    $out['EDIT_MODE']=$this->edit_mode;
   $out['MODE']=$this->mode;
   $out['ACTION']=$this->action;
   $out['TAB']=$this->tab;
@@ -136,6 +148,7 @@ function admin(&$out) {
  $out['STARLINESESID']=$this->config['STARLINESESID'];
 
  $out['STARLINECOOKIES']=$this->config['STARLINECOOKIES'];
+$out['DEV']=$this->config['DEV'];	
 
 $out['STARLINEDEBUG']=$this->config['STARLINEDEBUG'];
 	
@@ -167,6 +180,10 @@ $out['STARLINEDEBUG']=$this->config['STARLINEDEBUG'];
 	global $starlinedebug;
 	$this->config['STARLINEDEBUG']=$starlinedebug;	 
 
+ 	global $dev;
+	$this->config['dev']=$dev;	 
+
+
    
    $this->saveConfig();
    $this->redirect("?");
@@ -193,7 +210,7 @@ setGlobal('cycle_starlineControl','start');
  }
 
  if ($this->view_mode=='startign') {
-		$this->startign2($this->dev);
+$this->startign2($this->dev);
 
  }
 
