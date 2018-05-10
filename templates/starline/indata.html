@@ -72,12 +72,13 @@
  </td>  
 
  <td style="vertical-align:middle">
+  [#if tip=="Сигнализация"#]  
   [#if ign==1#]
    <img src="../templates/telegram/img/enable.png">
   [#else#]
    <img src="../templates/telegram/img/disable.png">
  &nbsp;  
-[#endif#]
+[#endif#][#else#][#endif#]
  </td>  
 <td style="vertical-align:middle">
   
@@ -91,12 +92,14 @@
  
  
  <td style="vertical-align:middle">
+  [#if tip=="Сигнализация"#]  
   [#if arm==1#]
    <img src="../templates/telegram/img/enable.png">
   [#else#]
    <img src="../templates/telegram/img/disable.png">
  &nbsp;  
-[#endif#]
+[#endif#][#else#][#endif#]
+  
 
 
   
