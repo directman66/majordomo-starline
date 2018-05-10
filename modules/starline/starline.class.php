@@ -193,7 +193,7 @@ setGlobal('cycle_starlineControl','start');
  }
 
  if ($this->view_mode=='startign') {
-		$this->startign2();
+		$this->startign2($this->dev);
 
  }
 
@@ -521,19 +521,14 @@ getURL($url, 0);
 	
  
    
-function startign2()
+function startign2($dev)
 {
-$cookie_file = ROOT . 'cached/starline_cookie.txt'; 
+$this->getConfig();
 
-$cdata=$this->config['STARLINECOOKIES'];
-//$token=gg('test.starline_token');
-//$sesid=gg('test.starline_PHPSESSID');
 $token=$this->config['STARLINETOKEN'];
-$sesid=$this->config['STARLINESESID'];
+$sesid=$this->config['STARLINESESID'];	
 
-$cck2=$cdata;
 //
-
 //eS = date / 1000;
 //	eS = eS.toString().replace(".","");
 //	path: '/device?tz=360&_='+eS, //list
@@ -541,13 +536,12 @@ $cck2=$cdata;
 //$url = 'https://starline-online.ru/device?tz=300&_=1512134458324'; 
 //$url = 'https://starline-online.ru/device?tz=360&_='.eS; 
 
-$url = 'https://starline-online.ru/device/22198231/executeCommand';  
+$url = 'https://starline-online.ru/device/'.$dev.'/executeCommand';  
 $fields = array(
-    'value' => '1', // номер телефона
+    'value' => '1', 
     'action' => 'ign', 
  'password' =>  ''
- //'password' =>  gg('balance.StarlinePass')
-);
+ );
 $fields_string = '';
 foreach ($fields as $key => $value) {
     $fields_string .= urlencode($key) . '=' . urlencode($value) . '&';
@@ -571,22 +565,15 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 'accept-encoding:gzip, deflate, br',
 'accept-language:ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
 'Referer: https://starline-online.ru/site/map',
-//'cookie:'.$cck2,
 'Cookie: PHPSESSID='.$sesid.'; t='.$token.'; lang=ru;',
-
- 
 'upgrade-insecure-requests:1',
 'user-agent:Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Mobile Safari/537.36',
 'Connection: keep-alive'
-
-
-
 ));
 
    $result = curl_exec($ch);
 
-sg('test.starline_ign',''.$result);
-
+//sg('test.starline_ign',''.$result);
    curl_close($ch);
 
 
