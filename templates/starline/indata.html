@@ -27,16 +27,16 @@
 <tr>
 
  <th><#LANG_TITLE#></th>
- <th align="center" >Обновлено</th>  
-<th align="center" >Тип</th>  
-<th align="center" > <img src="../img/modules/balance.png" Title="Баланс"></th>  
-<th align="center" >Зажиг.</th>  
-<th align="center" >Запуск</th>   
-<th align="center" >Охрана</th>  
+ <th align="left" >Обновлено</th>  
+<th align="left" >Тип</th>  
+<th align="left" > <img src="../img/modules/balance.png" Title="Баланс"></th>  
+<th align="left" >Зажиг.</th>  
+<th align="left" >Запуск</th>   
+<th align="left" >Охрана</th>  
  
-<th align="center" > <img src="../img/modules/ingn.png" Title="Темп.двигателя"></th> 
-<th align="justify" > <img src="../img/modules/auto.png" Title="Темп.салона"></th>    
-<th align="right" > <img src="../img/modules/battery.png" Title="Напряжение АКБ"></th>   
+<th align="left" > <img src="../img/modules/ingn.png" Title="Темп.двигателя"></th> 
+<th align="left" > <img src="../img/modules/auto.png" Title="Темп.салона"></th>    
+<th align="left" > <img src="../img/modules/battery.png" Title="Напряжение АКБ"></th>   
 
 <th>deviceid</th>  
 
@@ -57,21 +57,21 @@
   [#endif#]
  </td>  
 
- <td  align="center" style="vertical-align:middle">
+ <td  align="left" style="vertical-align:middle">
   [#if tip!=""#]
   <img src="../img/modules/[#tip#].png" Title="[#tip#]">
   [#else#]
   [#endif#]
  </td>  
  
- <td align="center" style="vertical-align:middle">
+ <td align="left" style="vertical-align:middle">
   [#if svalue!=""#]
    [#svalue#]
   [#else#]
   [#endif#]
  </td>  
 
- <td align="center" style="vertical-align:middle">
+ <td align="left" style="vertical-align:middle">
   [#if tip=="Сигнализация"#]  
   [#if ign==1#]
    <img src="../templates/telegram/img/enable.png">
@@ -80,7 +80,7 @@
  &nbsp;  
 [#endif#][#else#][#endif#]
  </td>  
-<td align="center" style="vertical-align:middle">
+<td align="left" style="vertical-align:middle">
   
    [#if tip=="Сигнализация"#]
     <a href="?data_source=<#DATA_SOURCE#>&view_mode=startign&dev=[#device_id#]">START</a>
@@ -91,7 +91,7 @@
  </td> 
  
  
- <td align="center" style="vertical-align:middle">
+ <td align="left" style="vertical-align:middle">
   [#if tip=="Сигнализация"#]  
   [#if arm==1#]
    <img src="../templates/telegram/img/enable.png">
@@ -101,14 +101,14 @@
 [#endif#][#else#][#endif#]
    
  </td>  
- <td align="center" style="vertical-align:middle">
+ <td align="left" style="vertical-align:middle">
   [#if etemp!=""#]
    [#etemp#]
   [#else#]
    &nbsp;
   [#endif#]
  </td>  
- <td align="center" style="vertical-align:middle">
+ <td align="left" style="vertical-align:middle">
   [#if ctemp!=""#]
    [#ctemp#][#mayak_temp#]
   [#else#]
@@ -116,7 +116,7 @@
   [#endif#]
  </td>  
 
- <td align="center" style="vertical-align:middle">
+ <td align="left" style="vertical-align:middle">
   [#if battery!=""#]
    [#battery#]
   [#else#]
@@ -124,7 +124,7 @@
   [#endif#]
  </td>  
 
-<td align="center" style="vertical-align:middle">
+<td align="left" style="vertical-align:middle">
   [#if device_id!=""#]
  <a href="?data_source=<#DATA_SOURCE#>&view_mode=startign&dev=[#device_id#]">[#device_id#]</a>
   [#else#]
