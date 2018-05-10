@@ -374,15 +374,13 @@ $this->saveConfig();
 
 function  getdatefnc(){
 $this->getConfig();
-$cookie_file = ROOT . 'cached/starline_cookie.txt'; 
 
-$cdata=$this->config['STARLINECOOKIES'];
-$token=gg('starlinecfg.token');
+//$cdata=$this->config['STARLINECOOKIES'];
+//$token=gg('starlinecfg.token');
 //$sesid=gg('test.starline_PHPSESSID');
-//$token=$this->config['STARLINETOKEN'];
+$token=$this->config['STARLINETOKEN'];
 //
 $sesid=$this->config['STARLINESESID'];
-$cck2=$cdata;
 //
 
 //eS = date / 1000;
@@ -419,8 +417,8 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 ));
 
 $result = curl_exec($ch);
-$this->config['STARLINEDEBUG']=$result;
-sg('test.starline2','all:'.$result);
+//$this->config['STARLINEDEBUG']=$result;
+//sg('test.starline2','all:'.$result);
 $data=explode("\n",$result);
 //$headers['status']=$data[0];
 
