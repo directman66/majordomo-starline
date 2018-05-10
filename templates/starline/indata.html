@@ -57,21 +57,21 @@
   [#endif#]
  </td>  
 
- <td style="vertical-align:middle">
+ <td  align="center" style="vertical-align:middle">
   [#if tip!=""#]
   <img src="../img/modules/[#tip#].png" Title="[#tip#]">
   [#else#]
   [#endif#]
  </td>  
  
- <td style="vertical-align:middle">
+ <td align="center" style="vertical-align:middle">
   [#if svalue!=""#]
    [#svalue#]
   [#else#]
   [#endif#]
  </td>  
 
- <td style="vertical-align:middle">
+ <td align="center" style="vertical-align:middle">
   [#if tip=="Сигнализация"#]  
   [#if ign==1#]
    <img src="../templates/telegram/img/enable.png">
@@ -80,7 +80,7 @@
  &nbsp;  
 [#endif#][#else#][#endif#]
  </td>  
-<td style="vertical-align:middle">
+<td align="center" style="vertical-align:middle">
   
    [#if tip=="Сигнализация"#]
     <a href="?data_source=<#DATA_SOURCE#>&view_mode=startign&dev=[#device_id#]">START</a>
@@ -91,7 +91,7 @@
  </td> 
  
  
- <td style="vertical-align:middle">
+ <td align="center" style="vertical-align:middle">
   [#if tip=="Сигнализация"#]  
   [#if arm==1#]
    <img src="../templates/telegram/img/enable.png">
@@ -99,20 +99,16 @@
    <img src="../templates/telegram/img/disable.png">
  &nbsp;  
 [#endif#][#else#][#endif#]
-  
-
-
-  
-  
+   
  </td>  
- <td style="vertical-align:middle">
+ <td align="center" style="vertical-align:middle">
   [#if etemp!=""#]
    [#etemp#]
   [#else#]
    &nbsp;
   [#endif#]
  </td>  
- <td style="vertical-align:middle">
+ <td align="center" style="vertical-align:middle">
   [#if ctemp!=""#]
    [#ctemp#][#mayak_temp#]
   [#else#]
@@ -120,7 +116,7 @@
   [#endif#]
  </td>  
 
- <td style="vertical-align:middle">
+ <td align="center" style="vertical-align:middle">
   [#if battery!=""#]
    [#battery#]
   [#else#]
@@ -128,7 +124,7 @@
   [#endif#]
  </td>  
 
-<td style="vertical-align:middle">
+<td align="center" style="vertical-align:middle">
   [#if device_id!=""#]
  <a href="?data_source=<#DATA_SOURCE#>&view_mode=startign&dev=[#device_id#]">[#device_id#]</a>
   [#else#]
@@ -139,7 +135,7 @@
  
 
 
- <td style="vertical-align:middle" width="1%" nowrap>
+ <td align="center" style="vertical-align:middle" width="1%" nowrap>
   <div style="width:120px">
   [#if "<#ACTION#>"=="admin"#]
 
