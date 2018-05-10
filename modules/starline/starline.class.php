@@ -379,9 +379,9 @@ $this->getConfig();
 //$token=gg('starlinecfg.token');
 //$sesid=gg('test.starline_PHPSESSID');
 $token=$this->config['STARLINETOKEN'];
-//
 $sesid=$this->config['STARLINESESID'];
 //
+echo $token.":".$sesid;
 
 //eS = date / 1000;
 //	eS = eS.toString().replace(".","");
