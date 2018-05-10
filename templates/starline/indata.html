@@ -36,6 +36,7 @@
 <th>Темп.дв</th>  
 <th>Темп.салона</th>  
 <th>Темп.улицы</th>  
+<th>Напряж.</th>   
 <th>deviceid</th>  
 
 
@@ -123,6 +124,13 @@
   [#endif#]
  </td>  
 
+ <td style="vertical-align:middle">
+  [#if battery!=""#]
+   [#battery#]
+  [#else#]
+   &nbsp;
+  [#endif#]
+ </td>  
 
 <td style="vertical-align:middle">
   [#if device_id!=""#]
