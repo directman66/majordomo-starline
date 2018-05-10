@@ -381,7 +381,7 @@ $this->getConfig();
 $token=$this->config['STARLINETOKEN'];
 $sesid=$this->config['STARLINESESID'];
 //
-echo $token.":".$sesid;
+//echo $token.":".$sesid;
 
 //eS = date / 1000;
 //	eS = eS.toString().replace(".","");
@@ -406,14 +406,9 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 'Referer: https://starline-online.ru/site/map',
 //'cookie:'.$cck2,
 'Cookie: PHPSESSID='.$sesid.'; t='.$token.'; lang=ru;',
-
- 
 'upgrade-insecure-requests:1',
 'user-agent:Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Mobile Safari/537.36',
 'Connection: keep-alive'
-
-
-
 ));
 
 $result = curl_exec($ch);
