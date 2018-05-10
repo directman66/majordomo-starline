@@ -537,6 +537,7 @@ $sesid=$this->config['STARLINESESID'];
 //$url = 'https://starline-online.ru/device?tz=360&_='.eS; 
 
 $url = 'https://starline-online.ru/device/'.$dev.'/executeCommand';  
+echo $url;
 $fields = array(
     'value' => '1', 
     'action' => 'ign', 
