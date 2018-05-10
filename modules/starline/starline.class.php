@@ -211,8 +211,11 @@ setGlobal('cycle_starlineControl','start');
 
  if ($this->view_mode=='startign') {
 $this->startign2($this->dev);
-
  }
+	
+ if ($this->view_mode=='stopign') {
+$this->stopign2($this->dev);
+ }	
 
 }
 /**
@@ -554,7 +557,7 @@ $sesid=$this->config['STARLINESESID'];
 //$url = 'https://starline-online.ru/device?tz=360&_='.eS; 
 
 $url = 'https://starline-online.ru/device/'.$dev.'/executeCommand';  
-echo $url;
+//echo $url;
 $fields = array(
     'value' => '1', 
     'action' => 'ign', 
@@ -596,6 +599,67 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 
 
 }
+	
+	
+function stopign2($dev)
+{
+$this->getConfig();
+
+$token=$this->config['STARLINETOKEN'];
+$sesid=$this->config['STARLINESESID'];	
+
+//
+//eS = date / 1000;
+//	eS = eS.toString().replace(".","");
+//	path: '/device?tz=360&_='+eS, //list
+
+//$url = 'https://starline-online.ru/device?tz=300&_=1512134458324'; 
+//$url = 'https://starline-online.ru/device?tz=360&_='.eS; 
+
+$url = 'https://starline-online.ru/device/'.$dev.'/executeCommand';  
+//echo $url;
+$fields = array(
+    'value' => '0', 
+    'action' => 'ign', 
+ 'password' =>  ''
+ );
+$fields_string = '';
+foreach ($fields as $key => $value) {
+    $fields_string .= urlencode($key) . '=' . urlencode($value) . '&';
+}
+
+
+   $ch = curl_init();   
+   curl_setopt($ch, CURLOPT_URL, $url);
+   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+   curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+curl_setopt($ch, CURLOPT_POST, count($fields));
+curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+':authority:starline-online.ru',
+':method:GET',
+':path:/device?tz=300&_=1513105401911',
+':scheme:https',
+'accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+'accept-encoding:gzip, deflate, br',
+'accept-language:ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+'Referer: https://starline-online.ru/site/map',
+'Cookie: PHPSESSID='.$sesid.'; t='.$token.'; lang=ru;',
+'upgrade-insecure-requests:1',
+'user-agent:Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Mobile Safari/537.36',
+'Connection: keep-alive'
+));
+
+   $result = curl_exec($ch);
+
+//sg('test.starline_ign',''.$result);
+   curl_close($ch);
+
+
+}
+	
  
 /**
 * Install
