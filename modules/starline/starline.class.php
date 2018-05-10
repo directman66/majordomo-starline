@@ -413,7 +413,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 
 $result = curl_exec($ch);
 //$this->config['STARLINEDEBUG']=$result;
-//sg('test.starline2','all:'.$result);
+sg('test.starline2','all:'.$result);
 $data=explode("\n",$result);
 //$headers['status']=$data[0];
 
