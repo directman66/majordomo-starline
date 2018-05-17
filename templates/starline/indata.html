@@ -58,8 +58,10 @@
 
  <td  align="left" style="vertical-align:middle">
   [#if tip!=""#]
-  <img src="../img/modules/[#tip#].png" Title="[#tip#]">
+  [#if tip="Маяк"#] <img src="../img/modules/mayak.png" Title="[#tip#]">[#endif#]  
+  [#if tip="Сигнализация"#] <img src="../img/modules/sign.png" Title="[#tip#]">[#endif#]    
   [#else#]
+<img src="../img/modules/[#tip#].png" Title="[#tip#]">  
   [#endif#]
  </td>  
  
