@@ -73,7 +73,7 @@
  </td>  
 
  <td align="left" style="vertical-align:middle">
-  [#if tip=="Сигнализация"||tip=="Модуль"#]  
+  [#if (tip=="Сигнализация")||(tip=="Модуль")#]  
   [#if ign==1#]
    <img src="../templates/telegram/img/enable.png">
   [#else#]
@@ -83,7 +83,7 @@
  
 <td align="left" style="vertical-align:middle">
   
-   [#if tip=="Сигнализация"||tip=="Модуль"#]
+   [#if (tip=="Сигнализация")||(tip=="Модуль")#]
  <a href="?data_source=<#DATA_SOURCE#>&view_mode=startign&dev=[#device_id#]">START</a>
  <a href="?data_source=<#DATA_SOURCE#>&view_mode=stopign&dev=[#device_id#]">STOP</a> 
   [#else#]
@@ -93,7 +93,7 @@
  
  
  <td align="left" style="vertical-align:middle">
-  [#if tip=="Сигнализация"||tip=="Модуль#]  
+  [#if (tip=="Сигнализация")||(tip=="Модуль")#]  
   [#if arm==1#]
    <img src="../templates/telegram/img/enable.png">
   [#else#]
