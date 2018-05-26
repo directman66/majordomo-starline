@@ -72,6 +72,7 @@ function getParams() {
   global $edit_mode;
   global $tab;
   global $dev;	
+global $upd_PROPERTY_NAME;		
   if (isset($id)) {
    $this->id=$id;
   }
@@ -215,7 +216,13 @@ $this->startign2($this->dev);
 	
  if ($this->view_mode=='stopign') {
 $this->stopign2($this->dev);
+
  }	
+	
+   if ($this->view_mode=='upd_PROPERTY_NAME')
+        {
+            $this->upd_PROPERTY_NAME();
+        }	
 
 }
 /**
@@ -257,7 +264,30 @@ $this->getdatefnc();
  
  
 
+function upd_PROPERTY_NAME() {	
 	
+$sqlQuery = "SELECT pvalues.*, objects.TITLE as OBJECT_TITLE, properties.TITLE as PROPERTY_TITLE
+               FROM pvalues
+               JOIN objects ON pvalues.OBJECT_ID = objects.id
+               JOIN properties ON pvalues.PROPERTY_ID = properties.id
+              WHERE pvalues.PROPERTY_NAME != CONCAT_WS('.', objects.TITLE, properties.TITLE)";
+$data = SQLSelect($sqlQuery);
+$total = count($data);
+for ($i = 0; $i < $total; $i++)
+{
+   $objectProperty = $data[$i]['OBJECT_TITLE'] . "." . $data[$i]['PROPERTY_TITLE'];
+   if ($data[$i]['PROPERTY_NAME'])
+      echo "Incorrect: " . $data[$i]['PROPERTY_NAME'] . " should be $objectProperty" . PHP_EOL;
+   else
+      echo "Missing: " . $objectProperty . PHP_EOL;
+   $sqlQuery = "SELECT *
+                  FROM pvalues
+                 WHERE ID = '" . $data[$i]['ID'] . "'";
+   $rec = SQLSelectOne($sqlQuery);
+   $rec['PROPERTY_NAME'] = $data[$i]['OBJECT_TITLE'] . "." . $data[$i]['PROPERTY_TITLE'];
+   SQLUpdate('pvalues', $rec);
+}
+}	
 	
 function login() {
 $cookie_file = ROOT . 'cached/starline_cookie.txt'; 
