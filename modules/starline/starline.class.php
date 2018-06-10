@@ -351,7 +351,7 @@ $info = curl_getinfo($ch);
 $this->config['STARLINEDEBUG']=$result;
 
 //sg('test.starline','ch:'.$ch);
-sg('test.starline','result:'.$result);
+//sg('test.starline','result:'.$result);
 
 
 //sg('test.starline','reqestheader:'.json_encode($info));
@@ -516,7 +516,8 @@ foreach ($names as $key=> $value ) {
   if ($key2=='alias' )  {
 
    //$devicename=str_replace(" ","_",$value2);
-$devicename=$value2;   
+	  
+$devicename=str_replace(' ', '_',$value2);   
 //sg('test.starline',$devicename);
 //   if (gg($devicename."."."alias")=$devicename) {
 //}else {
