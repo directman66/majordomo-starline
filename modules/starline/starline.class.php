@@ -846,7 +846,7 @@ return $spl[0] ;
 //return $url;
 } 
 }
-/*
+
  function AlarmIndex() {
     $objects=getObjectsByClass('AlarmClock');
     $index=0;
@@ -865,7 +865,7 @@ return $spl[0] ;
     }
     return $index;
 }
-*/
+
 /*
 *
 * TW9kdWxlIGNyZWF0ZWQgQXByIDA0LCAyMDE2IHVzaW5nIFNlcmdlIEouIHdpemFyZCAoQWN0aXZlVW5pdCBJbmMgd3d3LmFjdGl2ZXVuaXQuY29tKQ==
