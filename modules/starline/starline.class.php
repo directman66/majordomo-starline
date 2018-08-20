@@ -217,12 +217,24 @@ $this->startign2($this->dev);
  if ($this->view_mode=='stopign') {
 $this->stopign2($this->dev);
 
+ }
+	
+ if ($this->view_mode=='alarmengine') {
+$this->alarmengine();
  }	
+	
+if ($this->view_mode=='alarmstate') {
+$this->alarmstate();
+ }		
 	
    if ($this->view_mode=='upd_PROPERTY_NAME')
         {
             $this->upd_PROPERTY_NAME();
         }	
+	
+	
+	
+	
 
 }
 /**
@@ -571,7 +583,32 @@ getURL($url, 0);
 }
 	
  
+ function alarmengine() {
+$objn='AlarmClock'.AlarmIndex();	 
+addClassObject('AlarmClock',$objn);	 
+sg($objn.'.days','1111111');
+sg($objn.'.once','0');	 
+sg($objn.'.method','code');	 	 
+sg($objn.'.AlarmTime','07:00');	 	 
+sg($objn.'.AlarmOn','1');	 	 
+sg($objn.'.code','');	 	 	 
+sg($objn.'.linked_method','');	 	 	 	 
+SQLUpdate('objects', array("ID"=>get_id($objn), "DESCRIPTION"=>"starline_startengine"));   	 
+} 
+ function alarmstate() {
+$objn='AlarmClock'.AlarmIndex();	 
+addClassObject('AlarmClock',$objn);	 
+sg($objn.'.days','1111111');
+sg($objn.'.once','0');	 
+sg($objn.'.method','code');	 	 
+sg($objn.'.AlarmTime','21:00');	 	 
+sg($objn.'.AlarmOn','1');	 	 
+sg($objn.'.code','');	 	 	 
+sg($objn.'.linked_method','');	 	 	 	 
+SQLUpdate('objects', array("ID"=>get_id($objn), "DESCRIPTION"=>"starline_state"));   	 
+} 	
    
+	
 function startign2($dev)
 {
 $this->getConfig();
@@ -808,6 +845,25 @@ $spl=explode(',',$otvet) ;
 return $spl[0] ;
 //return $url;
 } 
+}
+
+ function AlarmIndex() {
+    $objects=getObjectsByClass('AlarmClock');
+    $index=0;
+    $total = count($objects);
+    for ($i = 0; $i < $total; $i++) {
+        if (preg_match('/(\d+)/',$objects[$i]['TITLE'],$m)) {
+            $current_index=(int)$m[1];
+            if ($current_index>$index) {
+                $index=$current_index;
+            }
+        }
+    }
+    $index++;
+    if ($index<10) {
+        $index='0'.$index;
+    }
+    return $index;
 }
 /*
 *
