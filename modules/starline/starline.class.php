@@ -223,6 +223,10 @@ $this->stopign2($this->dev);
 $this->alarmengine();
  }	
 	
+ if ($this->view_mode=='nowstate') {
+$this->saystate();
+ }		
+	
 if ($this->view_mode=='alarmstate') {
 $this->alarmstate();
  }		
@@ -845,6 +849,47 @@ $spl=explode(',',$otvet) ;
 return $spl[0] ;
 //return $url;
 } 
+}
+
+
+
+function saystate(){
+	
+$lu=gg("kia ceed.updated");
+$luts=gg("kia ceed.timestamp");
+$diff=(gmdate('i',trim(time()-$luts)));
+
+$pattern = "|\b[0]+([1-9][\d]*)|is"; 
+$diff2= preg_replace($pattern, "\\1", $diff); 
+
+//$status .= "Информация об автомобиле была обновлена  " .$lu." ". $diff . " минут назад.";
+$status .= "Информация об автомобиле была обновлена  "  .$diff2 . " минут назад.";
+//echo gg('kia ceed.ign');
+
+if (gg('kia ceed.ign')=='1') {$status =$status." Двигатель запущен, "; }
+else   {$status=$status." Двигатель остановлен,";}
+
+
+
+if (gg("kia ceed.arm")==1)  {$status =$status." охрана включена, "; }
+else {$status =$status." охрана выключена,";}
+
+
+$status .= " температура двигателя ".round(gg("kia ceed.etemp"))." градусов, температура в салоне  ".round(gg("kia ceed.ctemp"))." градусов.";
+
+$status .= " Напряжение аккумуляторной батареи ".gg("kia ceed.battery")." вольт. ";
+if (gg("kia ceed.battery")<12.4) {$status = $status." Внимание, аккумулятор сильно разряжен, рекомендуется зарядить как можно скорее!";}
+
+
+$status .= " Баланс сим карты МТС-телематика ".round(gg("kia ceed.value"))." рублей. ";
+if (gg("kia ceed.value")<50) {$status = $status." Не забудьте пополнить баланс телефона.";}
+if (gg("kia ceed.short_address")<>""){
+$status .= " По данным системы мониторинга автомобиль находится на ".  gg("kia ceed.short_address");}
+
+
+say($status,2);
+	
+	
 }
 
 
