@@ -377,7 +377,7 @@ $fields_string = '';
 foreach ($fields as $key => $value) {    $fields_string .= urlencode($key) . '=' . urlencode($value) . '&';}
 rtrim($fields_string, '&');
 //$this->config['STARLINEDEBUG']=$fields_string;
-SQLexec("update starline_config set value='$fields_string' where parametr='STARLINEDEBUG'");		
+//SQLexec("update starline_config set value='$fields_string' where parametr='STARLINEDEBUG'");		
 //sg('test.starline','login:'.$fields_string);
 
 //sg('test.starline',$this->config['COOKIES']);
@@ -894,8 +894,8 @@ SQLUpdate('properties',$property);}
 setGlobal('cycle_starlineAutoRestart','1');	 	 
 	 
   $data = <<<EOD
- starline_config: parametr varchar(300)
- starline_config:  value varchar(100)  
+ starline_config: parametr varchar(10000)
+ starline_config:  value varchar(10000)  
 EOD;
    parent::dbInstall($data);	 
 	 
