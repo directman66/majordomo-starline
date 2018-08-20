@@ -143,17 +143,43 @@ function admin(&$out) {
 		}
 
  
- $out['STARLINELOGIN'] = $this->config['STARLINELOGIN'];
- $out['STARLINEPWD']=$this->config['STARLINEPWD'];
- $out['STARLINETOKEN']=$this->config['STARLINETOKEN'];
- $out['STARLINESESID']=$this->config['STARLINESESID'];
-
- $out['STARLINECOOKIES']=$this->config['STARLINECOOKIES'];
-$out['DEV']=$this->config['DEV'];	
-
-$out['STARLINEDEBUG']=$this->config['STARLINEDEBUG'];
+// $out['STARLINELOGIN'] = $this->config['STARLINELOGIN'];
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINELOGIN'");
+$out['STARLINELOGIN']=$cmd_rec['VALUE'];
 	
- $out['EVERY']=$this->config['EVERY'];
+// $out['STARLINEPWD']=$this->config['STARLINEPWD'];
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINEPWD'");
+$out['STARLINEPWD']=$cmd_rec['VALUE'];	
+	
+/// $out['STARLINETOKEN']=$this->config['STARLINETOKEN'];
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINETOKEN'");
+$out['STARLINETOKEN']=$cmd_rec['VALUE'];	
+	
+ //$out['STARLINESESID']=$this->config['STARLINESESID'];
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINESESID'");
+$out['STARLINESESID']=$cmd_rec['VALUE'];	
+
+// $out['STARLINECOOKIES']=$this->config['STARLINECOOKIES'];
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINECOOKIES'");
+$out['STARLINECOOKIES']=$cmd_rec['VALUE'];	
+	
+	
+//$out['DEV']=$this->config['DEV'];	
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='DEV'");
+$out['DEV']=$cmd_rec['VALUE'];
+	
+	
+
+//$out['STARLINEDEBUG']=$this->config['STARLINEDEBUG'];
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINEDEBUG'");
+$out['STARLINEDEBUG']=$cmd_rec['VALUE'];
+	
+	
+//$out['EVERY']=$this->config['EVERY'];
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='EVERY'");
+$out['EVERY']=$cmd_rec['VALUE'];
+	
+
 	
 $cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='MSG_LEVEL'");
 $out['MSG_LEVEL']=$cmd_rec['VALUE'];
@@ -167,26 +193,37 @@ $out['MSG_LEVEL']=$cmd_rec['VALUE'];
  
  if ($this->view_mode=='update_settings') {
 	global $starlinelogin;
-	$this->config['STARLINELOGIN']=$starlinelogin;	 
+//	$this->config['STARLINELOGIN']=$starlinelogin;	 
+SQLexec("update starline_config set value='$starlinelogin' where parametr='STARLINELOGIN'");		 	 	 
+	 
 
 	global $starlinepwd;
-	$this->config['STARLINEPWD']=$starlinepwd;	 
+//$this->config['STARLINEPWD']=$starlinepwd;
+SQLexec("update starline_config set value='$starlinepwd' where parametr='STARLINEPWD'");		 	 	 	 
 
 	global $starlinetoken;
-	$this->config['STARLINETOKEN']=$starlinetoken;	 
+//	$this->config['STARLINETOKEN']=$starlinetoken;	 
+SQLexec("update starline_config set value='$starlinetoken' where parametr='STARLINETOKEN'");	 
+	 
+global $every;
+SQLexec("update starline_config set value='$every' where parametr='EVERY'");		 
 
-	global $starlinesesid;
-	$this->config['STARLINESESID']=$starlinesesid;	 
+global $starlinesesid;
+//$this->config['STARLINESESID']=$starlinesesid;	 
+SQLexec("update starline_config set value='$starlinesesid' where parametr='starlinesesid'");		 	 
 
 
 	global $starlinecookies;
-	$this->config['STARLINECOOKIES']=$starlinecookies;	 
+//	$this->config['STARLINECOOKIES']=$starlinecookies;	 
+SQLexec("update starline_config set value='$starlinecookies' where parametr='STARLINECOOKIES'");		 	 	 
 
 	global $starlinedebug;
-	$this->config['STARLINEDEBUG']=$starlinedebug;	 
+//$this->config['STARLINEDEBUG']=$starlinedebug;	 
+SQLexec("update starline_config set value='$starlinedebug' where parametr='STARLINEDEBUG'");		 	 	 	 
 
  	global $dev;
-	$this->config['dev']=$dev;	 
+//	$this->config['dev']=$dev;	 
+SQLexec("update starline_config set value='$dev' where parametr='dev'");		 	 	 	 	 
 
 
    
