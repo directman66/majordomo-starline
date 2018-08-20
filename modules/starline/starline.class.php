@@ -855,7 +855,7 @@ return $spl[0] ;
 *
 */
 
- function AlarmIndex() {
+ function AlarmIndex22() {
 	 /*
     $objects=getObjectsByClass('AlarmClock');
     $index=0;
