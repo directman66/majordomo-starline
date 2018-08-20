@@ -582,9 +582,9 @@ getURL($url, 0);
 
 }
 	
-/* 
+ 
  function alarmengine() {
-$objn='AlarmClock'.AlarmIndex();	 
+$objn='AlarmClock'.AlarmIndex22();	 
 addClassObject('AlarmClock',$objn);	 
 sg($objn.'.days','1111111');
 sg($objn.'.once','0');	 
@@ -596,7 +596,7 @@ sg($objn.'.linked_method','');
 SQLUpdate('objects', array("ID"=>get_id($objn), "DESCRIPTION"=>"starline_startengine"));   	 
 } 
  function alarmstate() {
-$objn='AlarmClock'.AlarmIndex();	 
+$objn='AlarmClock'.AlarmIndex22();	 
 addClassObject('AlarmClock',$objn);	 
 sg($objn.'.days','1111111');
 sg($objn.'.once','0');	 
@@ -608,7 +608,7 @@ sg($objn.'.linked_method','');
 SQLUpdate('objects', array("ID"=>get_id($objn), "DESCRIPTION"=>"starline_state"));   	 
 } 	
    
-*/	
+	
 function startign2($dev)
 {
 $this->getConfig();
