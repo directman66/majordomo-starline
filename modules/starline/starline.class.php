@@ -857,7 +857,7 @@ function saystate(){
 $objn="kia ceed";
 	
 $lu=gg($objn.".updated");
-$luts=gg($objn."..timestamp");
+$luts=gg($objn.".timestamp");
 $diff=(gmdate('i',trim(time()-$luts)));
 
 $pattern = "|\b[0]+([1-9][\d]*)|is"; 
