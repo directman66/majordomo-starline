@@ -1,0 +1,74 @@
+<div style="display:none" id='api_settings'>
+
+&nbsp;
+<form action="?" method="post" enctype="multipart/form-data" name="frmEdit" class="form-horizontal">
+<fieldset>
+
+&nbsp;&nbsp;<a class="btn btn-default" href="?data_source=<#DATA_SOURCE#>&view_mode=upd_PROPERTY_NAME&tab=">UPD</a>
+<div class="form-group">
+ <label class="control-label"[#if ERR_SERVER#] style="color:red;font-weight:bold"[#endif#]>LOGIN:<span style="color:blue">(*)</span></label>
+ <div class="controls"><input type="text" name="starlinelogin" value="[#STARLINELOGIN#]" class="input"> 
+<p class="text-muted"><br/>Логин на сайте телематики</p>   
+ </div>
+</div>
+
+
+<div class="form-group">
+ <label class="control-label"[#if ERR_PORT#] style="color:red;font-weight:bold"[#endif#]>PASSWORD:<span style="color:blue">(*)</span></label>
+ <div class="controls"><input type="text" name="starlinepwd" value="[#STARLINEPWD#]" class="input">
+   <p class="text-muted"><br/>Пароль на сайте телематики</p>
+ </div>
+</div>
+
+
+
+<div class="form-group">
+ <label class="control-label">STARLINESESID:(*)</label>
+<p class="text-muted"><#STARLINESESID#></p>
+</div>
+
+<div class="form-group">
+ <label class="control-label">TOKEN:(*)</label>
+<p class="text-muted"><#STARLINETOKEN#></p>
+  </div>
+
+
+
+
+<div class="form-group">
+ <label class="control-label"[#if ERR_API_MAC#] style="color:red;font-weight:bold"[#endif#]>COOKIES:</label>
+  <p class="text-muted"><#STARLINECOOKIES#></p>
+ </div>
+
+<div class="form-group">
+ <label class="control-label"[#if ERR_API_MAC#] style="color:red;font-weight:bold"[#endif#]>DEBUG:</label>
+  <p class="text-muted"><#STARLINEDEBUG#></p>
+ </div>
+
+
+<div class="form-group">
+ <label class="control-label">
+ <#LANG_AUTO_UPDATE_PERIOD#>:(*)
+ </label>
+ <div class="controls">
+		<select name="every" class="input span2">
+			<option[#if EVERY="5"#] selected[#endif#]>5
+			<option[#if EVERY="10"#] selected[#endif#]>10
+			<option[#if EVERY="15"#] selected[#endif#]>15
+			<option[#if EVERY="20"#] selected[#endif#]>20
+			<option[#if EVERY="30"#] selected[#endif#]>30
+			<option[#if EVERY="60"#] selected[#endif#]>60
+		 </select> минут 
+ </div>
+</div>
+
+<div class="form-actions">
+<button type="submit" name="subm" value="Submit" class="btn btn-primary"><#LANG_UPDATE#></button>
+<input type="hidden" name="view_mode" value="update_settings">
+<input type="hidden" name="mode" value="update">
+</div>
+</fieldset>
+</form>
+</div>
+
+<br/>
