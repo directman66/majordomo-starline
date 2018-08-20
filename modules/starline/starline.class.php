@@ -819,7 +819,12 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 * @access public
 */
  function uninstall() {
-  SQLExec('DROP TABLE IF EXISTS starline');
+SQLExec('DROP TABLE IF EXISTS starline_config');	 
+SQLExec("delete from pvalues where property_id in (select id FROM properties where object_id in (select id from objects where class_id = (select id from classes where title = 'starline-online')))");
+SQLExec("delete from properties where object_id in (select id from objects where class_id = (select id from classes where title = 'starline-online'))");
+SQLExec("delete from objects where class_id = (select id from classes where title = 'starline-online')");
+SQLExec("delete from methods where class_id = (select id from classes where title = 'starline-online')");	 
+SQLExec("delete from classes where title = 'starline-online'");	 
   parent::uninstall();
  }
 /**
