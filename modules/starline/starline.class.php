@@ -591,7 +591,7 @@ sg($objn.'.once','0');
 sg($objn.'.method','code');	 	 
 sg($objn.'.AlarmTime','07:00');	 	 
 sg($objn.'.AlarmOn','1');	 	 
-sg($objn.'.code','');	 	 	 
+sg($objn.'.code','include_once(DIR_MODULES . "starline/starline.class.php"); $sl = new $starline(); $sl->startign2(); ');	 	 	 
 sg($objn.'.linked_method','');	 	 	 	 
 SQLUpdate('objects', array("ID"=>get_id($objn), "DESCRIPTION"=>"starline_startengine"));   	 
 } 
@@ -603,7 +603,7 @@ sg($objn.'.once','0');
 sg($objn.'.method','code');	 	 
 sg($objn.'.AlarmTime','21:00');	 	 
 sg($objn.'.AlarmOn','1');	 	 
-sg($objn.'.code','');	 	 	 
+sg($objn.'.code','include_once(DIR_MODULES . "starline/starline.class.php"); $sl = new $starline(); $sl->saystate(); ');	 	 	 	 
 sg($objn.'.linked_method','');	 	 	 	 
 SQLUpdate('objects', array("ID"=>get_id($objn), "DESCRIPTION"=>"starline_state"));   	 
 } 	
