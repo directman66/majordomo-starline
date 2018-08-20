@@ -351,12 +351,22 @@ $cookie_file = ROOT . 'cached/starline_cookie.txt';
 $this->getConfig();
 //sg('test.starline','login:'.$this->config['STARLINELOGIN']);
 //sg('test.starline','login:'.$this->config['STARLINEPWD']);
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINELOGIN'");
+$login=$cmd_rec['VALUE'];
 
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINEPWD'");
+$pwd=$cmd_rec['VALUE'];
+	
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINECOOKIES'");
+$STARLINECOOKIES=$cmd_rec['VALUE'];	
+
+	
+	
 $url = 'https://starline-online.ru/user/login';
 $fields = array(
-'LoginForm[login]' =>$this->config['STARLINELOGIN'], 
+'LoginForm[login]' =>$login, 
 'LoginForm[rememberMe]' => 'on', 
-'LoginForm[pass]' => $this->config['STARLINEPWD'],
+'LoginForm[pass]' => $pwd,
 'captcha[code]'=>'',
 'captcha[sid]'=>''
 );
@@ -366,11 +376,13 @@ $fields = array(
 $fields_string = '';
 foreach ($fields as $key => $value) {    $fields_string .= urlencode($key) . '=' . urlencode($value) . '&';}
 rtrim($fields_string, '&');
-$this->config['STARLINEDEBUG']=$fields_string;
+//$this->config['STARLINEDEBUG']=$fields_string;
+SQLexec("update starline_config set value='$fields_string' where parametr='STARLINEDEBUG'");		
 //sg('test.starline','login:'.$fields_string);
 
 //sg('test.starline',$this->config['COOKIES']);
-$cdata=$this->config['STARLINECOOKIES'];
+//$cdata=$this->config['STARLINECOOKIES'];
+$cdata=$STARLINECOOKIES;	
 	 
 $ch = curl_init();
 //curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie_file);
@@ -405,7 +417,10 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 
 $result = curl_exec($ch);
 $info = curl_getinfo($ch);
-$this->config['STARLINEDEBUG']=$result;
+//$this->config['STARLINEDEBUG']=$result;
+SQLexec("update starline_config set value='$result' where parametr='STARLINEDEBUG'");	
+	
+	
 
 //sg('test.starline','ch:'.$ch);
 //sg('test.starline','result:'.$result);
@@ -427,8 +442,9 @@ $par=substr ($part,0,10);
 if (strpos($part,'PHPSESSID')>0) {
 $sesid=explode('=',  $part);
 $sesid2=explode(';',  $sesid[1]);
-sg('test.starline_PHPSESSID',$sesid2[0]);
-$this->config['STARLINESESID']=$sesid2[0];
+//sg('test.starline_PHPSESSID',$sesid2[0]);
+//$this->config['STARLINESESID']=$sesid2[0];
+SQLexec("update starline_config set value='$sesid2[0]' where parametr='STARLINESESID'");		 	 	 		
 }
 
 if (strpos($part,': t=')>0) {
@@ -437,16 +453,19 @@ $token2=explode(';',  $token[1]);
 
 	
  //addClassObject('starline-online','starlinecfg');	
-addClassObject('','starlinecfg');		
-sg('starlinecfg.token',$token2[0]);	
-$this->config['STARLINETOKEN']=$token2[0];
+//addClassObject('','starlinecfg');		
+//sg('starlinecfg.token',$token2[0]);	
+//$this->config['STARLINETOKEN']=$token2[0];
+SQLexec("update starline_config set value='$token2[0]' where parametr='STARLINETOKEN'");		 	 	 	
 }
 
 if (strpos($part,'starline.ru')>0) {
 //$token=explode('=',  $part);
 //$token2=explode(';',  $token[1]);
-sg('test.starline_cookies',$part);
-$this->config['STARLINECOOKIES']=$part;
+//sg('test.starline_cookies',$part);
+//$this->config['STARLINECOOKIES']=$part;
+SQLexec("update starline_config set value='$part' where parametr='STARLINECOOKIES'");		 	 	 		
+	
 }
 
 
@@ -485,8 +504,16 @@ $this->getConfig();
 //$cdata=$this->config['STARLINECOOKIES'];
 //$token=gg('starlinecfg.token');
 //$sesid=gg('test.starline_PHPSESSID');
-$token=$this->config['STARLINETOKEN'];
-$sesid=$this->config['STARLINESESID'];
+//$token=$this->config['STARLINETOKEN'];
+//$sesid=$this->config['STARLINESESID'];
+	
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINETOKEN'");
+$token=$cmd_rec['VALUE'];
+	
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINESESID'");
+$sesid=$cmd_rec['VALUE'];	
+	
+	
 //
 //echo $token.":".$sesid;
 
