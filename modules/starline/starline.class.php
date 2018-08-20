@@ -856,7 +856,7 @@ return $spl[0] ;
 */
 
  function AlarmIndex22() {
-	 /*
+	 
     $objects=getObjectsByClass('AlarmClock');
     $index=0;
     $total = count($objects);
@@ -873,5 +873,5 @@ return $spl[0] ;
         $index='0'.$index;
     }
     return $index;
-    */
+    
 }
