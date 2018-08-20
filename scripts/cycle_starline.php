@@ -21,7 +21,10 @@ $starline_module = new starline();
  
 echo date("H:i:s") . " running " . basename(__FILE__) . PHP_EOL;
 $latest_check=0;
-$checkEvery=300; // poll every 5 min
+//$checkEvery=300; // poll every 5 min
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='EVERY'");
+$checkEvery=$cmd_rec['VALUE']*60;
+
 while (1)
 {
    setGlobal((str_replace('.php', '', basename(__FILE__))) . 'Run', time(), 1);
