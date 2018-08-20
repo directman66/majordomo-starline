@@ -154,6 +154,10 @@ $out['DEV']=$this->config['DEV'];
 $out['STARLINEDEBUG']=$this->config['STARLINEDEBUG'];
 	
  $out['EVERY']=$this->config['EVERY'];
+	
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='MSG_LEVEL'");
+$out['MSG_LEVEL']=$cmd_rec['VALUE'];
+	
  
  if (!$out['UUID']) {
 	 $out['UUID'] = md5(microtime() . rand(0, 9999));
@@ -819,6 +823,13 @@ $property['DESCRIPTION']='GPS координаты'; //   <-----------
 SQLUpdate('properties',$property);} 
 
 setGlobal('cycle_starlineAutoRestart','1');	 	 
+	 
+  $data = <<<EOD
+ starline_config: parametr varchar(300)
+ starline_config:  value varchar(100)  
+EOD;
+   parent::dbInstall($data);	 
+	 
  }
 // --------------------------------------------------------------------
 
