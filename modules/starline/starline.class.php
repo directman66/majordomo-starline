@@ -685,9 +685,16 @@ function startign2($dev)
 {
 $this->getConfig();
 
-$token=$this->config['STARLINETOKEN'];
-$sesid=$this->config['STARLINESESID'];	
+//$token=$this->config['STARLINETOKEN'];
+//$sesid=$this->config['STARLINESESID'];	
 
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINETOKEN'");
+$token=$cmd_rec['VALUE'];
+	
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINESESID'");
+$sesid=$cmd_rec['VALUE'];	
+
+	
 //
 //eS = date / 1000;
 //	eS = eS.toString().replace(".","");
@@ -745,8 +752,15 @@ function stopign2($dev)
 {
 $this->getConfig();
 
-$token=$this->config['STARLINETOKEN'];
-$sesid=$this->config['STARLINESESID'];	
+//$token=$this->config['STARLINETOKEN'];
+//$sesid=$this->config['STARLINESESID'];	
+	
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINETOKEN'");
+$token=$cmd_rec['VALUE'];
+	
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINESESID'");
+$sesid=$cmd_rec['VALUE'];	
+	
 
 //
 //eS = date / 1000;
