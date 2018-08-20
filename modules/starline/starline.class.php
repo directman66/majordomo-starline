@@ -593,7 +593,7 @@ sg($objn.'.AlarmTime','07:00');
 sg($objn.'.AlarmOn','1');	 	 
 sg($objn.'.code','include_once(DIR_MODULES . "starline/starline.class.php"); $sl = new $starline(); $sl->startign2(); ');	 	 	 
 sg($objn.'.linked_method','');	 	 	 	 
-SQLUpdate('objects', array("ID"=>get_id($objn), "DESCRIPTION"=>"starline_startengine"));   	 
+SQLUpdate('objects', array("ID"=>get_id22($objn), "DESCRIPTION"=>"starline_startengine"));   	 
 } 
  function alarmstate() {
 $objn='AlarmClock'.AlarmIndex22();	 
@@ -605,7 +605,7 @@ sg($objn.'.AlarmTime','21:00');
 sg($objn.'.AlarmOn','1');	 	 
 sg($objn.'.code','include_once(DIR_MODULES . "starline/starline.class.php"); $sl = new $starline(); $sl->saystate(); ');	 	 	 	 
 sg($objn.'.linked_method','');	 	 	 	 
-SQLUpdate('objects', array("ID"=>get_id($objn), "DESCRIPTION"=>"starline_state"));   	 
+SQLUpdate('objects', array("ID"=>get_id22($objn), "DESCRIPTION"=>"starline_state"));   	 
 } 	
    
 	
@@ -874,4 +874,11 @@ return $spl[0] ;
     }
     return $index;
     
+}
+
+function get_id22($prop)
+{
+$sql='SELECT distinct id id FROM `objects`  WHERE TITLE ="'.$prop.'"';
+$rec = SQLSelect($sql); 
+return $rec[0][id];
 }
