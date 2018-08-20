@@ -934,7 +934,11 @@ SQLInsert('starline_config', $par);
 $par['parametr'] = 'UUID';
 $par['value'] = "";		 
 SQLInsert('starline_config', $par);
-	 
+
+$par['parametr'] = 'STARLINEDEBUG';
+$par['value'] = "";		 
+SQLInsert('starline_config', $par);	 
+
 
 	 
 	 
