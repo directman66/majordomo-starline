@@ -830,6 +830,45 @@ setGlobal('cycle_starlineAutoRestart','1');
 EOD;
    parent::dbInstall($data);	 
 	 
+$par['parametr'] = 'EVERY';
+$par['value'] = 30;		 
+SQLInsert('starline_config', $par);
+
+$par['parametr'] = 'MSG_LEVEL';
+$par['value'] = "2";		 
+SQLInsert('starline_config', $par);
+	 
+$par['parametr'] = 'LASTCONDITION';
+$par['value'] = "0";		 
+SQLInsert('starline_config', $par);		 
+	 
+$par['parametr'] = 'STARLINELOGIN';
+$par['value'] = "";		 
+SQLInsert('starline_config', $par);		 	 
+
+$par['parametr'] = 'STARLINEPWD';
+$par['value'] = "";		 
+SQLInsert('starline_config', $par);		 	 
+	 
+$par['parametr'] = 'STARLINETOKEN';
+$par['value'] = "";		 
+SQLInsert('starline_config', $par);		 	 
+	 
+$par['parametr'] = 'STARLINESESID';
+$par['value'] = "";		 
+SQLInsert('starline_config', $par);		 	 
+	 
+$par['parametr'] = 'DEV';
+$par['value'] = "";		 
+SQLInsert('starline_config', $par);
+	 
+$par['parametr'] = 'UUID';
+$par['value'] = "";		 
+SQLInsert('starline_config', $par);
+	 
+
+	 
+	 
  }
 // --------------------------------------------------------------------
 
