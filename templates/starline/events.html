@@ -7,6 +7,30 @@
   
 <br>
 			<div class="form-group">
+				
+<label class="control-label">
+ <div class="controls">	
+Уровень сообщений ($MSG_LEVEL):
+		<select name="msg_level" class="input span2">
+			<option[#if MSG_LEVEL=""||MSG_LEVEL="0"#] selected[#endif#]>0
+			<option[#if MSG_LEVEL="1"#] selected[#endif#]>1
+			<option[#if MSG_LEVEL="2"#] selected[#endif#]>2
+			<option[#if MSG_LEVEL="3"#] selected[#endif#]>3
+			<option[#if MSG_LEVEL="4"#] selected[#endif#]>4
+			<option[#if MSG_LEVEL="5"#] selected[#endif#]>5
+			<option[#if MSG_LEVEL="6"#] selected[#endif#]>6
+			<option[#if MSG_LEVEL="7"#] selected[#endif#]>7						    
+			<option[#if MSG_LEVEL="8"#] selected[#endif#]>8						    
+			<option[#if MSG_LEVEL="9"#] selected[#endif#]>9						    
+			<option[#if MSG_LEVEL="10"#] selected[#endif#]>10						    						    
+		 </select>  
+</label>					
+ </div>				
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				
 
 				
        	<div class="controls"><input type="checkbox" id="enable_events" name="enable_events" data-toggle="collapse" data-target="#enable_events" value="1"
