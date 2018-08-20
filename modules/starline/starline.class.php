@@ -849,7 +849,6 @@ $spl=explode(',',$otvet) ;
 return $spl[0] ;
 //return $url;
 } 
-}
 
 
 
@@ -891,7 +890,7 @@ say($status,2);
 	
 	
 }
-
+}
 
 
 /*
