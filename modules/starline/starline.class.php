@@ -853,9 +853,11 @@ return $spl[0] ;
 
 
 function saystate(){
+
+$objn="kia ceed";
 	
-$lu=gg("kia ceed.updated");
-$luts=gg("kia ceed.timestamp");
+$lu=gg($objn.".updated");
+$luts=gg($objn."..timestamp");
 $diff=(gmdate('i',trim(time()-$luts)));
 
 $pattern = "|\b[0]+([1-9][\d]*)|is"; 
@@ -865,26 +867,25 @@ $diff2= preg_replace($pattern, "\\1", $diff);
 $status .= "Информация об автомобиле была обновлена  "  .$diff2 . " минут назад.";
 //echo gg('kia ceed.ign');
 
-if (gg('kia ceed.ign')=='1') {$status =$status." Двигатель запущен, "; }
+if (gg($objn.'.ign')=='1') {$status =$status." Двигатель запущен, "; }
 else   {$status=$status." Двигатель остановлен,";}
 
 
 
-if (gg("kia ceed.arm")==1)  {$status =$status." охрана включена, "; }
+if (gg($objn.".arm")==1)  {$status =$status." охрана включена, "; }
 else {$status =$status." охрана выключена,";}
 
 
-$status .= " температура двигателя ".round(gg("kia ceed.etemp"))." градусов, температура в салоне  ".round(gg("kia ceed.ctemp"))." градусов.";
+$status .= " температура двигателя ".round(gg($objn.".etemp"))." градусов, температура в салоне  ".round(gg($objn.".ctemp"))." градусов.";
 
-$status .= " Напряжение аккумуляторной батареи ".gg("kia ceed.battery")." вольт. ";
-if (gg("kia ceed.battery")<12.4) {$status = $status." Внимание, аккумулятор сильно разряжен, рекомендуется зарядить как можно скорее!";}
+$status .= " Напряжение аккумуляторной батареи ".gg($objn.".battery")." вольт. ";
+if (gg($objn.".battery")<12.4) {$status = $status." Внимание, аккумулятор сильно разряжен, рекомендуется зарядить как можно скорее!";}
 
 
-$status .= " Баланс сим карты МТС-телематика ".round(gg("kia ceed.value"))." рублей. ";
-if (gg("kia ceed.value")<50) {$status = $status." Не забудьте пополнить баланс телефона.";}
-if (gg("kia ceed.short_address")<>""){
-$status .= " По данным системы мониторинга автомобиль находится на ".  gg("kia ceed.short_address");}
-
+$status .= " Баланс сим карты МТС-телематика ".round(gg($objn.".value"))." рублей. ";
+if (gg($objn.".value")<50) {$status = $status." Не забудьте пополнить баланс телефона.";}
+if (gg($objn.".short_address")<>""){
+$status .= " По данным системы мониторинга автомобиль находится на ".  gg($objn.".short_address");}
 
 say($status,2);
 	
