@@ -854,22 +854,27 @@ return $spl[0] ;
 
 function saystate(){
 
-$objn="kia ceed";
+$objects = getObjectsByClass("starline-online");
+foreach ($objects as $obj) {
+    $ar2[] = $obj['TITLE'];
+
+//$objn="kia ceed";
+$objn=$obj['TITLE'];
+
 	
 $lu=gg($objn.".updated");
-$luts=gg($objn.".timestamp");
+$luts=gg($objn."..timestamp");
 $diff=(gmdate('i',trim(time()-$luts)));
 
 $pattern = "|\b[0]+([1-9][\d]*)|is"; 
 $diff2= preg_replace($pattern, "\\1", $diff); 
 
 //$status .= "Информация об автомобиле была обновлена  " .$lu." ". $diff . " минут назад.";
-$status .= "Информация об автомобиле была обновлена  "  .$diff2 . " минут назад.";
+$status = "Информация об автомобиле ".$objn." была обновлена  "  .$diff2 . " минут назад.";
 //echo gg('kia ceed.ign');
 
 if (gg($objn.'.ign')=='1') {$status =$status." Двигатель запущен, "; }
 else   {$status=$status." Двигатель остановлен,";}
-
 
 
 if (gg($objn.".arm")==1)  {$status =$status." охрана включена, "; }
@@ -888,6 +893,9 @@ if (gg($objn.".short_address")<>""){
 $status .= " По данным системы мониторинга автомобиль находится на ".  gg($objn.".short_address");}
 
 say($status,2);
+}
+
+//say("test123",2);
 	
 	
 }
