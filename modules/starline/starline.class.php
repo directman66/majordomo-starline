@@ -228,7 +228,8 @@ SQLexec("update starline_config set value='$dev' where parametr='dev'");
 
    
    $this->saveConfig();
-   $this->redirect("?");
+//   $this->redirect("?");
+   $this->redirect("?tab=settings");
  }
  if (isset($this->data_source) && !$_GET['data_source'] && !$_POST['data_source']) {
   $out['SET_DATASOURCE']=1;
@@ -244,6 +245,7 @@ SQLexec("update starline_config set value='$dev' where parametr='dev'");
  if ($this->view_mode=='login') {
 setGlobal('cycle_starlineControl','start');  	 
 		$this->login();
+$this->redirect("?tab=settings");
  }
 
  if ($this->view_mode=='get') {
