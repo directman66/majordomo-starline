@@ -7,9 +7,11 @@
 * @author Wizard <sergejey@gmail.com>
 * @copyright http://majordomo.smartliving.ru/ (c)
 * @version 0.1 (wizard, 09:04:00 [Apr 04, 2016])
+
 */
 //
 //
+ini_set ('display_errors', 'off');
 class starline extends module {
 /**
 *
@@ -154,6 +156,14 @@ $out['STARLINEPWD']=$cmd_rec['VALUE'];
 /// $out['STARLINETOKEN']=$this->config['STARLINETOKEN'];
 $cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINETOKEN'");
 $out['STARLINETOKEN']=$cmd_rec['VALUE'];	
+
+
+if (strlen($cmd_rec['VALUE']=0)) 
+
+{$out['NOTOKEN']="1";} else 
+{$out['NOTOKEN']="0";}
+
+
 	
  //$out['STARLINESESID']=$this->config['STARLINESESID'];
 $cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINESESID'");
@@ -173,6 +183,12 @@ $out['DEV']=$cmd_rec['VALUE'];
 //$out['STARLINEDEBUG']=$this->config['STARLINEDEBUG'];
 $cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINEDEBUG'");
 $out['STARLINEDEBUG']=$cmd_rec['VALUE'];
+
+if (strpos($cmd_rec['VALUE'], 'Captcha needed')>10) 
+
+{$out['NEEDCAPTCHA']="1";} else 
+{$out['NEEDCAPTCHA']="0";}
+
 	
 	
 //$out['EVERY']=$this->config['EVERY'];
