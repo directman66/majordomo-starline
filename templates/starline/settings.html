@@ -68,7 +68,7 @@
 
 [#if NOTOKEN="1"#]
 <div class="form-group">
-<b><big><big><p class="text-danger">Необходимо получить токен авторизации. Нажмите кнопку заполните LOGIN/PASSWORD на этой странице. Сохраните данные нажатием кнопки ОБНОВИТЬ. Получите токен нажатием 
+<b><big><big><p class="text-danger">Необходимо получить токен авторизации. Заполните LOGIN/PASSWORD на этой странице. Сохраните данные нажатием кнопки ОБНОВИТЬ. Получите токен нажатием 
 на кнопку LOGIN. </p></big></big></b>
   </div>
 
@@ -82,6 +82,11 @@
 <div class="form-group">
  <label class="control-label"[#if ERR_API_MAC#] style="color:red;font-weight:bold"[#endif#]>COOKIES:</label>
   <p class="text-muted"><#STARLINECOOKIES#></p>
+ </div>
+
+<div class="form-group">
+ <label class="control-label"[#if ERR_API_MAC#] style="color:red;font-weight:bold"[#endif#]>USERAGENTID:</label>
+  <p class="text-muted"><#USERAGENTID#></p>
  </div>
 
 
