@@ -158,7 +158,8 @@ $cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARL
 $out['STARLINETOKEN']=$cmd_rec['VALUE'];	
 
 
-if (strlen($cmd_rec['VALUE']=0)) 
+//if (strlen($cmd_rec['VALUE']==0)) 
+if (!$cmd_rec['VALUE']) 
 
 {$out['NOTOKEN']="1";} else 
 {$out['NOTOKEN']="0";}
@@ -173,7 +174,11 @@ $out['STARLINESESID']=$cmd_rec['VALUE'];
 $cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINECOOKIES'");
 $out['STARLINECOOKIES']=$cmd_rec['VALUE'];	
 	
-	
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='USERAGENTID'");
+$out['USERAGENTID']=$cmd_rec['VALUE'];		
+
+
+
 //$out['DEV']=$this->config['DEV'];	
 $cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='DEV'");
 $out['DEV']=$cmd_rec['VALUE'];
@@ -434,6 +439,9 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 
 
 $result = curl_exec($ch);
+
+$result = urldecode($result);
+
 $info = curl_getinfo($ch);
 //$this->config['STARLINEDEBUG']=$result;
 SQLexec("update starline_config set value='$result' where parametr='STARLINEDEBUG'");	
@@ -448,33 +456,58 @@ SQLexec("update starline_config set value='$result' where parametr='STARLINEDEBU
 //sg('test.starline','reqestheade_ifo:'.$info['request_header']);
 
 //$headers=array();
+
+debmes('result:'.$result,'starline');
 $data=explode("\n",$result);
 //$headers['status']=$data[0];
 
 //array_shift($data);
 
+debmes('data:'.$data,'starline');
+
+
 foreach($data as $part){
 $par=substr ($part,0,10);
 
+//debmes('strpos(part,PHPSESSID):'.strpos($part,'PHPSESSID'),'starline');
+
 //sg('test.starline','part:'.$part);
 if (strpos($part,'PHPSESSID')>0) {
+debmes('PART:'.$part,'starline');
+
 $sesid=explode('=',  $part);
 $sesid2=explode(';',  $sesid[1]);
+
+debmes('sesid2:'.$sesid2,'starline');
 //sg('test.starline_PHPSESSID',$sesid2[0]);
 //$this->config['STARLINESESID']=$sesid2[0];
 SQLexec("update starline_config set value='$sesid2[0]' where parametr='STARLINESESID'");		 	 	 		
 }
 
-if (strpos($part,': t=')>0) {
-$token=explode('=',  $part);
-$token2=explode(';',  $token[1]);
+//if (strpos($part,': t=')>0) {
+if (strpos($part,'token')>0) {
+//$token=explode('=',  $part);
 
-	
- //addClassObject('starline-online','starlinecfg');	
-//addClassObject('','starlinecfg');		
-//sg('starlinecfg.token',$token2[0]);	
-//$this->config['STARLINETOKEN']=$token2[0];
-SQLexec("update starline_config set value='$token2[0]' where parametr='STARLINETOKEN'");		 	 	 	
+
+
+debmes('this token:'.$part,'starline');
+//$match=';\w{0,}:\d{0,2}:"(.+?)";}';
+//$match='s:32:"(.+?)";}';
+
+
+$re = '/token\S{2}\w{0,}\S\d{0,}\S{2}(.+?)\S{2}}/';
+
+
+preg_match($re, $part, $matches, PREG_OFFSET_CAPTURE, 0);
+
+
+print_r($matches);
+$token=$matches[1][0];
+
+debmes('matches:'.$matches,'starline');
+
+debmes('token:'.$token,'starline');
+SQLexec("update starline_config set value='$token' where parametr='STARLINETOKEN'");		 	 	 	
 }
 
 if (strpos($part,'starline.ru')>0) {
@@ -482,9 +515,38 @@ if (strpos($part,'starline.ru')>0) {
 //$token2=explode(';',  $token[1]);
 //sg('test.starline_cookies',$part);
 //$this->config['STARLINECOOKIES']=$part;
-SQLexec("update starline_config set value='$part' where parametr='STARLINECOOKIES'");		 	 	 		
+
+
+
+debmes('STARLINECOOKIES: '. urlencode($part),'starline');
+
+SQLexec("update starline_config set value='".urlencode($part)."' where parametr='STARLINECOOKIES'");		 	 	 		
 	
 }
+
+
+if (strpos($part,'userAgentId')>0) {
+
+$re = '/userAgentId=(.+?);/m';
+
+preg_match($re, $part, $matches, PREG_OFFSET_CAPTURE, 0);
+
+
+//print_r($matches);
+
+$useragentid=$matches[1][0];
+
+
+debmes('userAgentpart: '. $part,'starline');
+
+debmes( $matches,'starline');
+
+debmes('userAgentId: '. $useragentid,'starline');
+
+SQLexec("update starline_config set value='".$useragentid."' where parametr='USERAGENTID'");		 	 	 		
+	
+}
+
 
 
 //sg('test.starline','part:'.$part);
@@ -525,11 +587,29 @@ $this->getConfig();
 //$token=$this->config['STARLINETOKEN'];
 //$sesid=$this->config['STARLINESESID'];
 	
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINELOGIN'");
+$login=$cmd_rec['VALUE'];
+
 $cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINETOKEN'");
 $token=$cmd_rec['VALUE'];
+
+
 	
 $cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINESESID'");
 $sesid=$cmd_rec['VALUE'];	
+
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINECOOKIES'");
+$cookies=$cmd_rec['VALUE'];	
+
+
+
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='USERAGENTID'");
+$useragentid=$cmd_rec['VALUE'];	
+
+
+$ck='cookie:_ym_uid=1550205745797125950;_ym_d=1550205745;__utma=219212379.1511068578.1550205745.1550205745.1550205745.1;__utmc=219212379;__utmz=219212379.1550205745.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none);__utmt=1;__utmb=219212379.1.10.1550205745;_ym_isad=2;_ym_visorc_20868619=w;PHPSESSID='.$sesid.';738a10a47cba25be2f5ef6b525fea42a=20edac0fed905f5972513c846e74d543fb0de142a:4:{i:0;s:6:"183613";i:1;s:11:"'.$login.'";i:2;i:2592000;i:3;a:13:{s:8:"slid_uid";s:6:"182877";s:5:"login";s:11:"'.$login.'";s:10:"first_name";s:14:"";s:9:"last_name";s:16:"";s:11:"middle_name";s:0:"";s:12:"company_name";s:0:"";s:3:"sex";s:1:"M";s:4:"lang";s:2:"ru";s:3:"gmt";s:2:"+5";s:6:"avatar";a:2:{s:8:"standard";s:46:"https://id.starline.ru/avatar/default.standart";s:9:"thumbnail";s:47:"https://id.starline.ru/avatar/default.thumbnail";}s:8:"contacts";s:15:"auth_contact_id";N;s:5:"roles";a:1:{i:0;s:4:"user";}}};userAgentId='.$useragentid.';lang=ru';
+
+$cookies=urldecode($ck);
 	
 	
 //
@@ -540,14 +620,9 @@ $sesid=$cmd_rec['VALUE'];
 //	path: '/device?tz=360&_='+eS, //list
 
 $url = 'https://starline-online.ru/device?tz=300&_=1512134458324'; 
-//$url = 'https://starline-online.ru/device?tz=360&_='.eS; 
-   $ch = curl_init();   
-   curl_setopt($ch, CURLOPT_URL, $url);
-   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-   curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+
+$charray=
+array(
 ':authority:starline-online.ru',
 ':method:GET',
 ':path:/device?tz=300&_=1513105401911',
@@ -556,16 +631,34 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 'accept-encoding:gzip, deflate, br',
 'accept-language:ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
 'Referer: https://starline-online.ru/site/map',
-//'cookie:'.$cck2,
-'Cookie: PHPSESSID='.$sesid.'; t='.$token.'; lang=ru;',
+'Cookie:'.$cookies,
+//'Cookie: PHPSESSID='.$sesid.'; t='.$token.'; lang=ru;',
 'upgrade-insecure-requests:1',
 'user-agent:Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Mobile Safari/537.36',
 'Connection: keep-alive'
-));
+);
+
+debmes($charray, 'starline');
+
+
+//$url = 'https://starline-online.ru/device?tz=360&_='.eS; 
+   $ch = curl_init();   
+   curl_setopt($ch, CURLOPT_URL, $url);
+   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+   curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $charray);
+
+
+
 
 $result = curl_exec($ch);
 //$this->config['STARLINEDEBUG']=$result;
-sg('test.starline2','all:'.$result);
+//sg('test.starline2','all:'.$result);
+
+debmes('result:'.$result, 'starline');
+
 $data=explode("\n",$result);
 //$headers['status']=$data[0];
 
@@ -580,7 +673,7 @@ $sesid=explode('=',  $part);
 $sesid2=explode(';',  $sesid[1]);
 //sg('test.starline2_PHPSESSID',$sesid2[0]);
 }
-
+/*
 if (strpos($part,'t=')>0) {
 //sg('test.starline2_token',$part);
 }
@@ -598,7 +691,9 @@ if (strpos($part,'Captcha')>0) {
 if (strpos($part,'Cookies')>0) {
 //sg('test.starline2_Cookies',$part);
 }
+*/
 }
+
    curl_close($ch);
 
 //sg('test.starline',$result);
@@ -669,6 +764,8 @@ getURL($url, 0);
 //end main function 
 }
 //$this->saveConfig();
+
+      $this->upd_PROPERTY_NAME();
 
 }
 	
@@ -926,50 +1023,82 @@ SQLUpdate('properties',$property);}
 setGlobal('cycle_starlineAutoRestart','1');	 	 
 	 
   $data = <<<EOD
+ starline_config: ID int(10) unsigned NOT NULL auto_increment
  starline_config: parametr varchar(10000)
- starline_config:  value varchar(10000)  
+ starline_config: value varchar(10000)  
 EOD;
    parent::dbInstall($data);	 
+
+$par=SQLSElectOne("select * from  starline_config where parametr='EVERY'");
 	 
 $par['parametr'] = 'EVERY';
 $par['value'] = 30;		 
-SQLInsert('starline_config', $par);
+
+if (!$par['ID']) SQLInsert('starline_config', $par);
+
+$par=SQLSElectOne("select * from  starline_config where parametr='MSG_LEVEL'");
 
 $par['parametr'] = 'MSG_LEVEL';
 $par['value'] = "2";		 
-SQLInsert('starline_config', $par);
+if (!$par['ID']) SQLInsert('starline_config', $par);
 	 
+$par=SQLSElectOne("select * from  starline_config where parametr='LASTCONDITION'");
+
 $par['parametr'] = 'LASTCONDITION';
 $par['value'] = "0";		 
-SQLInsert('starline_config', $par);		 
+if (!$par['ID']) SQLInsert('starline_config', $par);
 	 
+
+$par=SQLSElectOne("select * from  starline_config where parametr='STARLINELOGIN'");
 $par['parametr'] = 'STARLINELOGIN';
 $par['value'] = "";		 
-SQLInsert('starline_config', $par);		 	 
+if (!$par['ID']) SQLInsert('starline_config', $par);
 
+
+$par=SQLSElectOne("select * from  starline_config where parametr='STARLINEPWD'");
 $par['parametr'] = 'STARLINEPWD';
 $par['value'] = "";		 
-SQLInsert('starline_config', $par);		 	 
-	 
+if (!$par['ID']) SQLInsert('starline_config', $par);
+
+$par=SQLSElectOne("select * from  starline_config where parametr='STARLINETOKEN'");	 
 $par['parametr'] = 'STARLINETOKEN';
 $par['value'] = "";		 
-SQLInsert('starline_config', $par);		 	 
-	 
+if (!$par['ID']) SQLInsert('starline_config', $par);
+
+
+$par=SQLSElectOne("select * from  starline_config where parametr='STARLINESESID'");	 
 $par['parametr'] = 'STARLINESESID';
 $par['value'] = "";		 
-SQLInsert('starline_config', $par);		 	 
+if (!$par['ID']) SQLInsert('starline_config', $par);
 	 
+
+$par=SQLSElectOne("select * from  starline_config where parametr='DEV'");
 $par['parametr'] = 'DEV';
 $par['value'] = "";		 
-SQLInsert('starline_config', $par);
+if (!$par['ID']) SQLInsert('starline_config', $par);
 	 
+$par=SQLSElectOne("select * from  starline_config where parametr='UUID'");
 $par['parametr'] = 'UUID';
 $par['value'] = "";		 
-SQLInsert('starline_config', $par);
+if (!$par['ID']) SQLInsert('starline_config', $par);
 
+$par=SQLSElectOne("select * from  starline_config where parametr='STARLINEDEBUG'");
 $par['parametr'] = 'STARLINEDEBUG';
 $par['value'] = "";		 
-SQLInsert('starline_config', $par);	 
+if (!$par['ID']) SQLInsert('starline_config', $par);
+
+
+$par=SQLSElectOne("select * from  starline_config where parametr='STARLINECOOKIES'");
+$par['parametr'] = 'STARLINECOOKIES';
+$par['value'] = "";		 
+if (!$par['ID']) SQLInsert('starline_config', $par);
+
+$par=SQLSElectOne("select * from  starline_config where parametr='USERAGENTID'");
+$par['parametr'] = 'USERAGENTID';
+$par['value'] = "";		 
+if (!$par['ID']) SQLInsert('starline_config', $par);
+
+
 
 
 	 
