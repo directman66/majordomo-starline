@@ -138,7 +138,7 @@ function admin(&$out) {
  $this->getConfig();
 
 //        if ((time() - gg('cycle_livegpstracksRun')) < $this->config['TLG_TIMEOUT']*2 ) {
-        if ((time() - gg('cycle_starlineRun')) < 360*2 ) {
+        if ((time() - gg('cycle_starlineRun')) < 360*30 ) {
 			$out['CYCLERUN'] = 1;
 		} else {
 			$out['CYCLERUN'] = 0;
