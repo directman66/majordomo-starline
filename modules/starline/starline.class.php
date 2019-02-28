@@ -321,13 +321,26 @@ function usual(&$out) {
  }
 
  function processCycle() {
+
+            debmes('run processcycle ','starline');
    $this->getConfig();
 
-   $every=$this->config['EVERY'];
+   //$every=$this->config['EVERY'];
+
+$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='EVERY'");
+$every=$cmd_rec['VALUE'];
+
+//$cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='LATEST_UPDATE'");
+//$tdev=$cmd_rec['VALUE'];
+
+
    $tdev = time()-$this->config['LATEST_UPDATE'];
    $has = $tdev>$every*60;
+
+debmes('every: '.$every.' tdev: '.$tdev. '  has: '.$has,'starline');
    if ($tdev < 0) {
 		$has = true;
+            debmes('has=true!!! ','starline');
    }
    
    if ($has) {  
