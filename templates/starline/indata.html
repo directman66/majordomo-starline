@@ -22,7 +22,12 @@
 <!-- / paging -->
 <!-- search results (list) -->
 <form action="?" method="post" name="indata" style="padding:0px" class="form">
-<table  align=center class="table table-striped">
+
+[#if "<#SETTINGS_THEME#>"=="dark"#]
+<table  align=center >
+[#else#]
+<table  align=center class="table table-striped" >
+[#endif#]
 <thead>
 <tr>
 
