@@ -34,13 +34,13 @@
  <th><#LANG_TITLE#></th>
  <th align="left" >Обновлено</th>  
 <th align="left" >Тип</th>  
-<th align="left" > <img src="../img/modules/balance.png" Title="Баланс"></th>  
-<th align="left" > <img src="../img/modules/ignition.png" Title="Зажигание"></th>   
-<th align="left" > <img src="../img/modules/starting.png" Title="Запуск"></th>  
-<th align="left" > <img src="../img/modules/alarm.png" Title="Охрана"></th>   
-<th align="left" > <img src="../img/modules/ingn.png" Title="Темп.двигателя"></th> 
-<th align="left" > <img src="../img/modules/auto.png" Title="Темп.салона"></th>    
-<th align="left" > <img src="../img/modules/battery.png" Title="Напряжение АКБ"></th>   
+<th align="left" > <img src="../templates/starline/img/sim.png" Title="Баланс"></th>  
+<th align="left" > <img src="../templates/starline/img/key.png" Title="Зажигание"></th>   
+<th align="left" > <img src="../templates/starline/img/rocket.png" Title="Запуск"></th>  
+<th align="left" > <img src="../templates/starline/img/alarm.png" Title="Охрана"></th>   
+<th align="left" > <img src="../templates/starline/img/engine.png" Title="Темп.двигателя"></th> 
+<th align="left" > <img src="../templates/starline/img/salon.png" Title="Темп.салона"></th>    
+<th align="left" > <img src="../templates/starline/img/akb.png" Title="Напряжение АКБ"></th>   
 
 <th>deviceid</th>  
 
@@ -68,9 +68,9 @@
 
  <td  align="left" style="vertical-align:middle">
   [#if tip!=""#]
-  [#if tip="Маяк"#] <img src="../img/modules/mayak.png" Title="[#tip#]">[#endif#]  
-  [#if tip="Сигнализация"#] <img src="../img/modules/sign.png" Title="[#tip#]">[#endif#] 
-  [#if tip="Модуль"#]       <img src="../img/modules/modul.png" Title="[#tip#]">[#endif#] 
+  [#if tip="Маяк"#]         <img src="../templates/starline/img/mayak.png" Title="[#tip#]">[#endif#]  
+  [#if tip="Сигнализация"#] <img src="../templates/starline/img/sign.png" Title="[#tip#]">[#endif#] 
+  [#if tip="Модуль"#]       <img src="../templates/starline/img/modul.png" Title="[#tip#]">[#endif#] 
   [#else#]
   [#endif#]
  </td>  
@@ -85,9 +85,9 @@
  <td align="left" style="vertical-align:middle">
   [#if (tip=="Сигнализация")||(tip=="Модуль")#]  
   [#if ign==1#]
-   <img src="../templates/telegram/img/enable.png">
+   <img src="../templates/starline/img/enable.png">
   [#else#]
-   <img src="../templates/telegram/img/disable.png">
+   <img src="../templates/starline/img/disable.png">
  [#endif#][#else#][#endif#]
  </td>  
  
@@ -105,9 +105,9 @@
  <td align="left" style="vertical-align:middle">
   [#if (tip=="Сигнализация")||(tip=="Модуль")#]  
   [#if arm==1#]
-   <img src="../templates/telegram/img/enable.png">
+   <img src="../templates/starline/img/enable.png">
   [#else#]
-   <img src="../templates/telegram/img/disable.png">
+   <img src="../templates/starline/img/disable.png">
  [#endif#][#else#][#endif#]
    
  </td>  
