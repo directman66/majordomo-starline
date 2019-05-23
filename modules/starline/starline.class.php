@@ -270,7 +270,11 @@ $this->redirect("?tab=settings");
  }
 
  if ($this->view_mode=='get') {
+
+
+        if ((time() - gg('cycle_starlineRun')) > 360*30 ) {
 setGlobal('cycle_starlineControl','start');  
+}
 		$this->getdatefnc();
  }
 
@@ -671,6 +675,8 @@ $result = curl_exec($ch);
 //sg('test.starline2','all:'.$result);
 
 debmes('result:'.$result, 'starline');
+
+if (strlen($result)<10) $this->login();
 
 $data=explode("\n",$result);
 //$headers['status']=$data[0];
