@@ -341,7 +341,7 @@ $every=$cmd_rec['VALUE'];
    $tdev = time()-$this->config['LATEST_UPDATE'];
    $has = $tdev>$every*60;
 
-debmes('every: '.$every.' tdev: '.$tdev. '  has: '.$has,'starline');
+debmes('every: '.$every.'   time():'.time().'    latest: '.$this->config['LATEST_UPDATE'].' raznica: '.$tdev. '  has: '.$has,'starline');
    if ($tdev < 0) {
 		$has = true;
             debmes('has=true!!! ','starline');
