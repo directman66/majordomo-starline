@@ -273,8 +273,8 @@ $this->redirect("?tab=settings");
 
 
         if ((time() - gg('cycle_starlineRun')) > 360*30 ) {
-setGlobal('cycle_starlineControl','start');  
-}
+                 setGlobal('cycle_starlineControl','start');  
+ }
 		$this->getdatefnc();
  }
 
@@ -326,6 +326,8 @@ function usual(&$out) {
 
  function processCycle() {
 
+
+
             debmes('run processcycle ','starline');
    $this->getConfig();
 
@@ -339,7 +341,7 @@ $every=$cmd_rec['VALUE'];
 
 
    $tdev = time()-$this->config['LATEST_UPDATE'];
-   $has = $tdev>$every*60;
+   $has = $tdev+5>$every*60;
 
 debmes('every: '.$every.'   time():'.time().'    latest: '.$this->config['LATEST_UPDATE'].' raznica: '.$tdev. '  has: '.$has,'starline');
    if ($tdev < 0) {
@@ -347,7 +349,9 @@ debmes('every: '.$every.'   time():'.time().'    latest: '.$this->config['LATEST
             debmes('has=true!!! ','starline');
    }
    
-   if ($has) {  
+   if ($has==true) {  
+
+$this->login();
 $this->getdatefnc();   
 		 
 	$this->config['LATEST_UPDATE']=time();
@@ -389,6 +393,8 @@ for ($i = 0; $i < $total; $i++)
 function login() {
 $cookie_file = ROOT . 'cached/starline_cookie.txt'; 
 $this->getConfig();
+
+debmes('start login','starline');
 //sg('test.starline','login:'.$this->config['STARLINELOGIN']);
 //sg('test.starline','login:'.$this->config['STARLINEPWD']);
 $cmd_rec = SQLSelectOne("SELECT VALUE FROM starline_config where parametr='STARLINELOGIN'");
@@ -457,7 +463,12 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 
 $result = curl_exec($ch);
 
+
+
 $result = urldecode($result);
+
+debmes('result:'.$result,'starline');
+
 
 $info = curl_getinfo($ch);
 //$this->config['STARLINEDEBUG']=$result;
@@ -481,6 +492,7 @@ $data=explode("\n",$result);
 //array_shift($data);
 
 debmes('data:'.$data,'starline');
+debmes($data,'starline');
 
 
 foreach($data as $part){
@@ -496,6 +508,7 @@ $sesid=explode('=',  $part);
 $sesid2=explode(';',  $sesid[1]);
 
 debmes('sesid2:'.$sesid2,'starline');
+debmes($sesid2,'starline');
 //sg('test.starline_PHPSESSID',$sesid2[0]);
 //$this->config['STARLINESESID']=$sesid2[0];
 SQLexec("update starline_config set value='$sesid2[0]' where parametr='STARLINESESID'");		 	 	 		
@@ -522,8 +535,12 @@ print_r($matches);
 $token=$matches[1][0];
 
 debmes('matches:'.$matches,'starline');
+debmes($matches,'starline');
 
 debmes('token:'.$token,'starline');
+debmes($token,'starline');
+
+
 SQLexec("update starline_config set value='$token' where parametr='STARLINETOKEN'");		 	 	 	
 }
 
@@ -556,6 +573,7 @@ $useragentid=$matches[1][0];
 
 debmes('userAgentpart: '. $part,'starline');
 
+debmes( 'matches:','starline');
 debmes( $matches,'starline');
 
 debmes('userAgentId: '. $useragentid,'starline');
@@ -597,6 +615,8 @@ $this->saveConfig();
 
 function  getdatefnc(){
 $this->getConfig();
+
+debmes('start  getdatefnc', 'starline');
 
 //$cdata=$this->config['STARLINECOOKIES'];
 //$token=gg('starlinecfg.token');
@@ -655,6 +675,7 @@ array(
 'Connection: keep-alive'
 );
 
+debmes('send reqest', 'starline');
 debmes($charray, 'starline');
 
 
@@ -665,7 +686,7 @@ debmes($charray, 'starline');
    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-curl_setopt($ch, CURLOPT_HTTPHEADER, $charray);
+   curl_setopt($ch, CURLOPT_HTTPHEADER, $charray);
 
 
 
@@ -674,6 +695,7 @@ $result = curl_exec($ch);
 //$this->config['STARLINEDEBUG']=$result;
 //sg('test.starline2','all:'.$result);
 
+debmes('result:', 'starline');
 debmes('result:'.$result, 'starline');
 
 if (strlen($result)<10) $this->login();
@@ -690,6 +712,7 @@ $par=substr ($part,0,10);
 if (strpos($part,'PHPSESSID')>0) {
 $sesid=explode('=',  $part);
 $sesid2=explode(';',  $sesid[1]);
+debmes('данные содержат PHPSESSID, пропускаем '.$part, 'starline');
 //sg('test.starline2_PHPSESSID',$sesid2[0]);
 }
 /*
@@ -765,6 +788,7 @@ sg($devicename.'.json',$result);
    
   }
 }
+debmes('отправляем координаты в трекер:'.$result, 'starline');
 $url = BASE_URL . '/gps.php?latitude=' . gg($devicename.'.y')
         . '&longitude=' . gg($devicename.'.x')
         . '&altitude=' . gg($devicename.'.altitude')
