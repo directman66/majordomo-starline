@@ -273,7 +273,7 @@ $this->redirect("?tab=settings");
 
 
         if ((time() - gg('cycle_starlineRun')) > 360*30 ) {
-                 setGlobal('cycle_starlineControl','start');  
+         setGlobal('cycle_starlineControl','start');  
  }
 		$this->getdatefnc();
  }
@@ -408,13 +408,20 @@ $STARLINECOOKIES=$cmd_rec['VALUE'];
 
 	
 	
-$url = 'https://starline-online.ru/user/login';
+//$url = 'https://starline-online.ru/user/login';
+//$fields = array(
+//'LoginForm[login]' =>$login, 
+//'LoginForm[rememberMe]' => 'on', 
+//'LoginForm[pass]' => $pwd,
+//'captcha[code]'=>'',
+//'captcha[sid]'=>''
+//);
+
+$url = 'https://starline-online.ru/rest/security/login';
 $fields = array(
-'LoginForm[login]' =>$login, 
-'LoginForm[rememberMe]' => 'on', 
-'LoginForm[pass]' => $pwd,
-'captcha[code]'=>'',
-'captcha[sid]'=>''
+'username' =>$login, 
+'rememberMe' => 'true', 
+'password' => $pwd
 );
 
 
